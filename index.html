@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <title>tjamers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="bg-image"              // image has not repeat
+     style="background-image: url(''); 
+   width:100% ;height: 100% ">
+    <div style="background-image: linear-gradient(to right, #1065c0 , #33c7d8); margin:30px; padding: 3px;">
+        <h3 style ="text-align: center;">Employee Data Management System</h3>
+    </div>
+    <button type="button" style="float: right; margin-right:30px;margin-bottom:30px" class="btn btn-primary">Add New Employee</button>
+    
+    <div style="margin:30px">
+        <table class="table" style:bgcolor-yellow>
+        <bold>
+            <tr>
+                <th>Emps_id</th> 
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Mobile No</th>
+            <th>Salary</th>
+            <th>Joining Data</th>
+            <th>Designation</th>
+            <th>Action</th>
+        </tr>
+    </bold>
+       
+        <tbody id='employees-data'>
+        </table >
+    </div>
+    </div>
+</body>
+<script>
+
+    fetch('https://jameresflaskproject.herokuapp.com/users')
+    .then(response=> response.json())
+    .then(data=> { 
+
+        console.table(data);
+
+        output = "" 
+        var date = [];
+        for(i = 0; i< data .length; i++){
+
+            let text = "Wed, 23 Nov 2022 00:00:00 GMT";
+const myArray = text.split("00:00:00 ");
+
+
+            output += `<tr>` 
+            output += `<td>${data[i]['emps_id']}</td>`
+            output += `<td>${data[i]['name']}</td>`
+            output += `<td>${data[i]['address']}</td>`
+            output += `<td>${data[i]['email']}</td>`
+            output += `<td>${data[i]['mobileno']}</td>`
+            output += `<td>${data[i]['salary']}</td>`
+            output += `<td>${myArray[0]}</td>`
+            output += `<td>${data[i]['designation']}</td>`
+            output += `<td>`;
+            output += `<button class="btn btn-primary">Edit</button>`;
+            output += '&nbsp;&nbsp;';
+            output += `<button class="btn btn-danger" onclick=deleteData('${data[i]._id}')>Delete</button>`;
+            output += `</td>`;
+            
+            
+            output += '<tr>'
+           
+            
+        }
+    console.log(output);
+
+    document.getElementById('employees-data').innerHTML= output
+})
+</script>
+</html>
